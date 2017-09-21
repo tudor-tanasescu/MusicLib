@@ -11,12 +11,12 @@ namespace MusicLibrary.Bal.Services
 {
     public class PlaylistServices : IPlaylistServices
     {
-        private readonly IPlaylistRepository _playlistRepo;
+        private readonly IPlaylistRepository _playlistRepository;
         private readonly IPlaylistFactory _playlistFactory;
 
-        public PlaylistServices(IPlaylistRepository playlistRepo, IPlaylistFactory playlistFactory)
+        public PlaylistServices(IPlaylistRepository playlistRepository, IPlaylistFactory playlistFactory)
         {
-            _playlistRepo = playlistRepo;
+            _playlistRepository = playlistRepository;
             _playlistFactory = playlistFactory;
         }
 
@@ -24,12 +24,13 @@ namespace MusicLibrary.Bal.Services
         {
             if (trackId <= 0) throw new ArgumentOutOfRangeException(nameof(trackId));
             if (playlistId <= 0) throw new ArgumentOutOfRangeException(nameof(playlistId));
-            _playlistRepo.AddTrack(trackId, playlistId);
+			
+            _playlistRepository.AddTrack(trackId, playlistId);
         }
 
         public PlaylistWithTracksDto GetPlaylistWithTracks(int userId, string id)
         {
-            var playlist = _playlistRepo.GetByUrlId(userId, id);
+            var playlist = _playlistRepository.GetByUrlId(userId, id);
             if (playlist == null) return null;
 
             var playlistDto = new PlaylistWithTracksDto
@@ -45,13 +46,13 @@ namespace MusicLibrary.Bal.Services
 
         public void AddTrackToNewPlaylist(int trackId, string playlistName, int userId)
         {
-            var user = _playlistRepo.GetById<User>(userId);
+            var user = _playlistRepository.GetById<User>(userId);
             
             var playlist = _playlistFactory.Produce(playlistName, user);
 
-            playlist.UrlId = _playlistRepo.GenerateUrlId(playlist.Name, userId);
+            playlist.UrlId = _playlistRepository.GenerateUrlId(playlist.Name, userId);
 
-            _playlistRepo.Create(playlist);
+            _playlistRepository.Create(playlist);
 
             AddTrack(trackId, playlist.Id);
         }
@@ -61,14 +62,14 @@ namespace MusicLibrary.Bal.Services
             if (userId <= 0) throw new ArgumentOutOfRangeException(nameof(userId));
             if (trackId <= 0) throw new ArgumentOutOfRangeException(nameof(trackId));
 
-            var track = _playlistRepo.GetById<Track>(trackId) ?? throw new ArgumentNullException(nameof(trackId));
-            var user = _playlistRepo.GetById<User>(userId) ?? throw new ArgumentNullException(nameof(userId));
+            var track = _playlistRepository.GetById<Track>(trackId) ?? throw new ArgumentNullException(nameof(trackId));
+            var user = _playlistRepository.GetById<User>(userId) ?? throw new ArgumentNullException(nameof(userId));
 
-            var addToPlaylistDtos = _playlistRepo.GetAddToPlaylists(user.Id);
+            var addToPlaylistDtos = _playlistRepository.GetAddToPlaylists(user.Id);
             foreach (var dto in addToPlaylistDtos)
             {
-                dto.Artwork = _playlistRepo.GetArtwork(dto.PlaylistId).Value;
-                dto.HasTrack = _playlistRepo.IsTrackInPlaylist(track.Id, dto.PlaylistId);
+                dto.Artwork = _playlistRepository.GetArtwork(dto.PlaylistId).Value;
+                dto.HasTrack = _playlistRepository.IsTrackInPlaylist(track.Id, dto.PlaylistId);
                 dto.CreatorUserName = user.UserName;
             }
 
@@ -79,15 +80,15 @@ namespace MusicLibrary.Bal.Services
         {
             if (trackId <= 0) throw new ArgumentOutOfRangeException(nameof(trackId));
             if (playlistId <= 0) throw new ArgumentOutOfRangeException(nameof(playlistId));
-            _playlistRepo.RemoveTrack(trackId, playlistId);
+            _playlistRepository.RemoveTrack(trackId, playlistId);
         }
 
         public IList<PlaylistDto> GetCreatedPlaylists(int userId, PageData pageData)
         {
-            var playlistDtos = _playlistRepo.GetCreatedPlaylists(userId, pageData);
+            var playlistDtos = _playlistRepository.GetCreatedPlaylists(userId, pageData);
             foreach (var dto in playlistDtos)
             {
-                dto.Artwork = _playlistRepo.GetArtwork(dto.PlaylistId).Value;
+                dto.Artwork = _playlistRepository.GetArtwork(dto.PlaylistId).Value;
             }
 
             return playlistDtos;
@@ -95,10 +96,10 @@ namespace MusicLibrary.Bal.Services
 
         public IList<PlaylistDto> GetSavedPlaylists(int userId, PageData pageData)
         {
-            var playlistDtos = _playlistRepo.GetSavedPlaylists(userId, pageData);
+            var playlistDtos = _playlistRepository.GetSavedPlaylists(userId, pageData);
             foreach (var dto in playlistDtos)
             {
-                dto.Artwork = _playlistRepo.GetArtwork(dto.PlaylistId).Value;
+                dto.Artwork = _playlistRepository.GetArtwork(dto.PlaylistId).Value;
             }
 
             return playlistDtos;
@@ -106,30 +107,30 @@ namespace MusicLibrary.Bal.Services
 
         public void Rename(int playlistId, string name)
         {
-            var playlist = _playlistRepo.GetById<Playlist>(playlistId);
+            var playlist = _playlistRepository.GetById<Playlist>(playlistId);
             playlist.Name = name;
-            _playlistRepo.Update(playlist);
+            _playlistRepository.Update(playlist);
         }
 
         public void Delete(int playlistId)
         {
-            var playlist = _playlistRepo.GetById<Playlist>(playlistId);
-            _playlistRepo.Delete(playlist);
+            var playlist = _playlistRepository.GetById<Playlist>(playlistId);
+            _playlistRepository.Delete(playlist);
         }
 
         public int GetCreatedPlaylistsCount(int userId)
         {
-            return _playlistRepo.GetCreatedPlaylistsCount(userId);
+            return _playlistRepository.GetCreatedPlaylistsCount(userId);
         }
 
         public int GetSavedPlaylistsCount(int userId)
         {
-            return _playlistRepo.GetSavedPlaylistsCount(userId);
+            return _playlistRepository.GetSavedPlaylistsCount(userId);
         }
 
         private IList<TrackListElementDto> GetPlaylistTrackListElementDtos(int playlistId)
         {
-            return _playlistRepo.GetTracks(playlistId);
+            return _playlistRepository.GetTracks(playlistId);
         }
     }
 }

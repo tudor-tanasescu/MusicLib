@@ -8,6 +8,7 @@ using FluentNHibernate.Cfg.Db;
 using MusicLibrary.Dal.Conventions;
 using MusicLibrary.Domain.Entities;
 using NHibernate;
+using NHibernate.Tool.hbm2ddl;
 
 namespace MusicLibrary.Dal.Utils
 {

@@ -21,22 +21,22 @@ namespace MusicLibrary.Web.Tests
                 UserName = "a.a",
                 Alias = "A A",
                 Email = "a.a@",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g==",
-                RecievesEmailNotifications = false
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w==",
+                RecievesEmailNotifications = true
             };
             var user2 = new User
             {
                 UserName = "b.b",
                 Alias = "B B",
                 Email = "b.b@",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g=="
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w=="
             };
             var user3 = new User
             {
                 UserName = "c.c",
                 Alias = "C C",
                 Email = "c.c@",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g=="
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w=="
             };
 
             var tedUser = new User
@@ -44,7 +44,7 @@ namespace MusicLibrary.Web.Tests
                 UserName = "ted",
                 Alias = "Ted",
                 Email = "ted@mail.com",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g=="
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w=="
             };
 
             var user4 = new User
@@ -52,8 +52,8 @@ namespace MusicLibrary.Web.Tests
                 UserName = "d.d",
                 Alias = "D D",
                 Email = "d.d@",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g==",
-                RecievesEmailNotifications = false
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w==",
+                RecievesEmailNotifications = true
             };
 
             _repo.Create(user1);
@@ -62,6 +62,7 @@ namespace MusicLibrary.Web.Tests
             _repo.Create(user4);
             _repo.Create(tedUser);
             
+			
             var fl1 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user3, FollowedUser = user1};
             var fl2 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user4, FollowedUser = user1};
             var fl3 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user3, FollowedUser = user2};
@@ -149,6 +150,7 @@ namespace MusicLibrary.Web.Tests
             var PlaylistTrack3 = new PlaylistTrack {Playlist = pl1, Track = track3};
             var PlaylistTrack4 = new PlaylistTrack {Playlist = pl1, Track = track4};
 
+			
             _repo.Create(PlaylistTrack1);
             _repo.Create(PlaylistTrack2);
             _repo.Create(PlaylistTrack3);
@@ -158,12 +160,13 @@ namespace MusicLibrary.Web.Tests
             var pl2 = new Playlist {Name = "Bezt Songz", Creator = user2, UrlId = "best-songz"};
             _repo.Create(pl2);
 
-
+			
             var PlaylistTrack12 = new PlaylistTrack {Playlist = pl2, Track = track2};
             var PlaylistTrack13 = new PlaylistTrack {Playlist = pl2, Track = track3};
 
             _repo.Create(PlaylistTrack12);
             _repo.Create(PlaylistTrack13);
+
             
 
             var uspl = new UserSavedPlaylist
