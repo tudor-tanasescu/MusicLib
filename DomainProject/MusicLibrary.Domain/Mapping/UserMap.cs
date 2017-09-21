@@ -12,15 +12,15 @@ namespace MusicLibrary.Domain.Mapping
 
             Map(u => u.Alias)
                 .Not.Nullable()
-                .Length(30);
+                .Length(255);
 
             Map(u => u.UserName)
                 .Not.Nullable()
-                .Length(20);
+                .Length(255);
 
             Map(u => u.Email)
                 .Not.Nullable()
-                .Length(20);
+                .Length(255);
 
             Map(u => u.PasswordHash)
                 .Not.Nullable();

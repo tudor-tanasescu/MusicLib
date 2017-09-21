@@ -34,7 +34,8 @@ namespace MusicLibrary.Domain.Mapping
                 .UniqueKey("U_UrlId_CreatorId")
                 .Cascade.SaveUpdate();
 
-            HasMany(pl => pl.PlaylistsTracks)
+            HasMany(pl => pl.PlaylistTrack)
+                .Inverse()
                 .Cascade.AllDeleteOrphan();
 
             HasManyToMany(pl => pl.Genres);

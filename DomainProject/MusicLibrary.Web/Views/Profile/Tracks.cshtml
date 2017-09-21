@@ -2,9 +2,13 @@
     ViewBag.Title = "Tracks you uploaded";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
 }
-<link href="~/Content/Thumbnails.css" rel="stylesheet" type="text/css" />
 <div class="container">
     <h4 class="category_title">Tracks uploaded</h4>
-    <ul id="trackContainer"></ul>
+    <ul id="trackContainer">
+        <li class="spinner" style="display: none">
+            <div class="col-md-12">
+                <div class="loader"></div>
+            </div>
+        </li>
+    </ul>
 </div>
-@Scripts.Render("~/Scripts/DynamicLoading.js")

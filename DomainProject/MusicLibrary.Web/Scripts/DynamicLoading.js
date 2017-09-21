@@ -70,6 +70,8 @@ var appendElements = function(url, containerId) {
     if (page > totalPages) {
         return;
     }
+    var spiner = $(containerId).find(".spinner");
+    spiner.show();
 
     var username = document.location.pathname.replace(/^\//g, "").split("/")[0];
 
@@ -77,11 +79,11 @@ var appendElements = function(url, containerId) {
         { username: username, page: page++, pageSize: pageSize },
         function(responseTxt, statusTxt, xhr) {
             if (statusTxt === "success") {
-                $(containerId).append(responseTxt);
+                $(responseTxt).insertBefore(spiner);
                 loading = false;
                 console.log(responseTxt);
             }
             if (statusTxt === "error")
                 alert("Error: " + xhr.status + ": " + xhr.statusText);
-        });
+        }).done(function(){spiner.hide()});
 };

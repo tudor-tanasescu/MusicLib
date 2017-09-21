@@ -7,18 +7,18 @@ using MusicLibrary.Domain.Models;
 using NHibernate;
 using NHibernate.Transform;
 
-namespace MusicLibrary.Dal.Repositories
+namespace MusicLibrary.Dal.Implementations
 {
     public class PlaylistRepository : Repository, IPlaylistRepository
     {
-        public PlaylistRepository(ISession session) : base(session)
+        public PlaylistRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
         public IFutureValue<string> GetArtwork(int playlistId)
         {
             Track track = null;
-            return Session.QueryOver<PlaylistsTracks>()
+            return Session.QueryOver<PlaylistTrack>()
                 .OrderBy(pt => pt.DateAdded).Desc
                 .Where(pt => pt.Playlist.Id == playlistId)
                 .JoinAlias(pt=>pt.Track, ()=>track)
@@ -27,17 +27,31 @@ namespace MusicLibrary.Dal.Repositories
                 .FutureValue<string>();
         }
 
-        public void AddTrackTo(int trackId, int playlistId)
+        public void AddTrack(int trackId, int playlistId)
         {
-            var pt = new PlaylistsTracks();
-
             var track = GetById<Track>(trackId);
             var playlist = GetById<Playlist>(playlistId);
+            
+            var playlistTrack = new PlaylistTrack {Playlist = playlist, Track = track};
+            playlist.AddTrack(playlistTrack);
+            
+            Update(playlist);
+        }
 
-            pt.Playlist = playlist;
-            pt.Track = track;
+        public void RemoveTrack(int trackId, int playlistId)
+        {
+            var playlistTrack = Session.QueryOver<PlaylistTrack>()
+                .Where(pt => pt.Playlist.Id == playlistId && pt.Track.Id == trackId)
+                .SingleOrDefault();
 
-            Create(pt);
+            var playlist = GetById<Playlist>(playlistId);
+
+            if (playlistTrack != null)
+            {
+                playlist.RemoveTrack(playlistTrack);
+
+                Update(playlist);
+            }
         }
 
         public IList<TrackListElementDto> GetTracks(int playlistId)
@@ -45,12 +59,12 @@ namespace MusicLibrary.Dal.Repositories
             TrackListElementDto dto = null;
             Track track = null;
             User uploader = null;
-            PlaylistsTracks playlistsTracks = null;
-            return Session.QueryOver(() => playlistsTracks)
+            PlaylistTrack playlistTrack = null;
+            return Session.QueryOver(() => playlistTrack)
                 .Where(pt => pt.Playlist.Id == playlistId)
                 .JoinAlias(pt => pt.Track, () => track)
                 .JoinAlias(pt => pt.Track.Uploader, () => uploader)
-                .OrderBy(() => playlistsTracks.DateAdded).Desc
+                .OrderBy(() => playlistTrack.DateAdded).Desc
                 .SelectList(l => l
                     .Select(() => track.Id).WithAlias(() => dto.Id)
                     .Select(() => track.Title).WithAlias(() => dto.Title)
@@ -81,21 +95,9 @@ namespace MusicLibrary.Dal.Repositories
 
         public bool IsTrackInPlaylist(int trackId, int playlistId)
         {
-            return Session.QueryOver<PlaylistsTracks>()
+            return Session.QueryOver<PlaylistTrack>()
                 .Where(pt=>pt.Track.Id == trackId && pt.Playlist.Id == playlistId)
                 .RowCount()>0;
-        }
-
-        public void RemoveTrack(int trackId, int playlistId)
-        {
-            var playlistTrack = Session.QueryOver<PlaylistsTracks>()
-                .Where(pt => pt.Playlist.Id == playlistId && pt.Track.Id == trackId)
-                .SingleOrDefault();
-
-            if (playlistTrack != null)
-            {
-                Delete(playlistTrack);
-            }
         }
 
         public IList<PlaylistDto> GetCreatedPlaylists(int userId, PageData pageData)

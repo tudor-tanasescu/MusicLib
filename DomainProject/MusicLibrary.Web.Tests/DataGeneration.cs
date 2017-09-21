@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MusicLibrary.Dal.Repositories;
-using MusicLibrary.Dal.Utils;
+using MusicLibrary.Dal.Implementations;
 using MusicLibrary.Domain.Entities;
 
-namespace MusicLibraryNHTests
+namespace MusicLibrary.Web.Tests
 {
     [TestClass]
     public class DataGenerationNew
@@ -15,7 +14,7 @@ namespace MusicLibraryNHTests
         public void DataInsert()
         {
             Repository.ResetDb();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            _repo = new Repository(new UnitOfWork());
 
             var user1 = new User
             {
@@ -62,10 +61,7 @@ namespace MusicLibraryNHTests
             _repo.Create(user3);
             _repo.Create(user4);
             _repo.Create(tedUser);
-
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
-
+            
             var fl1 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user3, FollowedUser = user1};
             var fl2 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user4, FollowedUser = user1};
             var fl3 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user3, FollowedUser = user2};
@@ -75,9 +71,7 @@ namespace MusicLibraryNHTests
             _repo.Create(fl2);
             _repo.Create(fl3);
             _repo.Create(fl4);
-
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            
 
             var track1 = new Track
             {
@@ -120,9 +114,7 @@ namespace MusicLibraryNHTests
             _repo.Create(track2);
             _repo.Create(track3);
             _repo.Create(track4);
-
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            
 
             var genre1 = new Genre{Name = "DeepHouse"};
             var genre2 = new Genre{ Name = "Pop" }; 
@@ -137,10 +129,7 @@ namespace MusicLibraryNHTests
 
             _repo.Create(genre1);
             _repo.Create(genre2);
-
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
-
+            
 
             track1.Genres.Add(genre1);
             track1.Genres.Add(genre2);
@@ -148,41 +137,34 @@ namespace MusicLibraryNHTests
 
             _repo.Create(track1);
             _repo.Create(track2);
-
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            
 
             var pl1 = new Playlist {Name = "My Playlist", Creator = user1, UrlId = "my-playlist"};
 
             _repo.Create(pl1);
 
 
-            var playlistsTracks1 = new PlaylistsTracks {Playlist = pl1, Track = track1};
-            var playlistsTracks2 = new PlaylistsTracks {Playlist = pl1, Track = track2};
-            var playlistsTracks3 = new PlaylistsTracks {Playlist = pl1, Track = track3};
-            var playlistsTracks4 = new PlaylistsTracks {Playlist = pl1, Track = track4};
+            var PlaylistTrack1 = new PlaylistTrack {Playlist = pl1, Track = track1};
+            var PlaylistTrack2 = new PlaylistTrack {Playlist = pl1, Track = track2};
+            var PlaylistTrack3 = new PlaylistTrack {Playlist = pl1, Track = track3};
+            var PlaylistTrack4 = new PlaylistTrack {Playlist = pl1, Track = track4};
 
-            _repo.Create(playlistsTracks1);
-            _repo.Create(playlistsTracks2);
-            _repo.Create(playlistsTracks3);
-            _repo.Create(playlistsTracks4);
+            _repo.Create(PlaylistTrack1);
+            _repo.Create(PlaylistTrack2);
+            _repo.Create(PlaylistTrack3);
+            _repo.Create(PlaylistTrack4);
 
 
             var pl2 = new Playlist {Name = "Bezt Songz", Creator = user2, UrlId = "best-songz"};
             _repo.Create(pl2);
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
 
 
-            var playlistsTracks12 = new PlaylistsTracks {Playlist = pl2, Track = track2};
-            var playlistsTracks13 = new PlaylistsTracks {Playlist = pl2, Track = track3};
+            var PlaylistTrack12 = new PlaylistTrack {Playlist = pl2, Track = track2};
+            var PlaylistTrack13 = new PlaylistTrack {Playlist = pl2, Track = track3};
 
-            _repo.Create(playlistsTracks12);
-            _repo.Create(playlistsTracks13);
-
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
-
+            _repo.Create(PlaylistTrack12);
+            _repo.Create(PlaylistTrack13);
+            
 
             var uspl = new UserSavedPlaylist
             {
@@ -190,10 +172,7 @@ namespace MusicLibraryNHTests
                 SavedPlaylist = pl2
             };
             _repo.Create(uspl);
-
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
-
+            
 
             var lt1 = new LikedTrack {Track = track1, User = user1};
             var lt2 = new LikedTrack {Track = track2, User = user1};

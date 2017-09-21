@@ -54,16 +54,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conventions\DateTimeConvention.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Implementations\PlaylistRepository.cs" />
+    <Compile Include="Implementations\Repository.cs" />
+    <Compile Include="Implementations\TrackRepository.cs" />
+    <Compile Include="Implementations\UnitOfWork.cs" />
+    <Compile Include="Implementations\UserRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Interfaces\ITrackRepository.cs" />
     <Compile Include="Interfaces\IPlaylistRepository.cs" />
-    <Compile Include="Repositories\PlaylistRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\TrackRepository.cs" />
-    <Compile Include="Repositories\UnitOfWork.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Utils\PagingExtension.cs" />
     <Compile Include="Utils\SessionFactory.cs" />
     <Compile Include="Utils\UrlIdGenerator.cs" />

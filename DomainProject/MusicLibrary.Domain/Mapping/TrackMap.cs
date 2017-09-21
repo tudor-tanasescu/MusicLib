@@ -12,7 +12,7 @@ namespace MusicLibrary.Domain.Mapping
 
             Map(track => track.Title)
                 .Not.Nullable()
-                .Length(30);
+                .Length(255);
 
             Map(track => track.UrlId)
                 .Not.Nullable()

@@ -3,9 +3,9 @@ using MusicLibrary.Domain.Entities;
 
 namespace MusicLibrary.Domain.Mapping
 {
-    public class PlaylistsTracksMap : ClassMap<PlaylistsTracks>
+    public class PlaylistTrackMap : ClassMap<PlaylistTrack>
     {
-        public PlaylistsTracksMap()
+        public PlaylistTrackMap()
         {
             Id(pt => pt.Id)
                 .GeneratedBy.Identity();

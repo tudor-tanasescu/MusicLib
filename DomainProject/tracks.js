@@ -78,7 +78,7 @@ $('.soundList__item').each(
     
     track["Description"] = lorem.slice(0, Math.floor(Math.random() * lorem.length-1)).join(' ');
     
-    track["DateAdded"] = date2SQL(dateInRange(start, end));
+    track["DateUploaded"] = date2SQL(dateInRange(start, end));
     
     track["Duration"] = Math.floor(1+Math.random() * 60)*600000000;
     
@@ -103,7 +103,7 @@ var query = "INSERT INTO [dbo].[Track] "+
     "( [Title]"+
     ", [UrlId]"+
     ", [Description]"+
-    ", [DateAdded]"+
+    ", [DateUploaded]"+
     ", [Duration]"+
     ", [Likes]"+
     ", [YearReleased]"+
@@ -116,7 +116,7 @@ $(tracks).each(
       +t["Title"].replace(/'/g, "''")+"', '"
       +t["UrlId"]+"', '"
       +t["Description"].replace(/'/g, "''")+"', '"
-      +t["DateAdded"]+"', '"
+      +t["DateUploaded"]+"', '"
       +t["Duration"]+"', '"
       +t["Likes"]+"', '"
       +t["YearReleased"]+"', "
