@@ -8,29 +8,28 @@ namespace MusicLibrary.Bal.Services
 {
     public class UserServices : IUserServices
     {
-        private readonly IUserRepository _userRepo;
+        private readonly IUserRepository _userRepository;
         private readonly IUserFactory _userFactory;
 
-        public UserServices(IUserRepository userRepo, IUserFactory userFactory)
+        public UserServices(IUserRepository userRepository, IUserFactory userFactory)
         {
-            _userRepo = userRepo;
+            _userRepository = userRepository;
             _userFactory = userFactory;
         }
 
-
         public void Create(User user)
         {
-            _userRepo.Create(user);
+            _userRepository.Create(user);
         }
 
         public void Delete(User user)
         {
-            _userRepo.Delete(user);
+            _userRepository.Delete(user);
         }
 
         public User GetById(int id)
         {
-            return _userRepo.GetById<User>(id);
+            return _userRepository.GetById<User>(id);
         }
 
         public User Create(UserRegisterDto dto)
@@ -40,12 +39,12 @@ namespace MusicLibrary.Bal.Services
 
         public User GetByUserName(string username)
         {
-            return _userRepo.GetByName(username);
+            return _userRepository.GetByName(username);
         }
 
         public void Update(User user)
         {
-            _userRepo.Update(user);
+            _userRepository.Update(user);
         }
     }
 }

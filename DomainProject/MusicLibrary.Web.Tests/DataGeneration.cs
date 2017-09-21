@@ -62,9 +62,7 @@ namespace MusicLibraryNHTests
             _repo.Create(user3);
             _repo.Create(user4);
             _repo.Create(tedUser);
-
-            //_repo._unitOfWork.Commit();
-            //_repo._unitOfWork.BeginTransaction();
+            
 
             var fl1 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user3, FollowedUser = user1};
             var fl2 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user4, FollowedUser = user1};
@@ -75,9 +73,7 @@ namespace MusicLibraryNHTests
             _repo.Create(fl2);
             _repo.Create(fl3);
             _repo.Create(fl4);
-
-            //_repo._unitOfWork.Commit();
-            //_repo._unitOfWork.BeginTransaction();
+            
 
             var track1 = new Track
             {
@@ -120,9 +116,7 @@ namespace MusicLibraryNHTests
             _repo.Create(track2);
             _repo.Create(track3);
             _repo.Create(track4);
-
-            //_repo._unitOfWork.Commit();
-            //_repo._unitOfWork.BeginTransaction();
+            
 
             var genre1 = new Genre{Name = "DeepHouse"};
             var genre2 = new Genre{ Name = "Pop" }; 
@@ -137,10 +131,7 @@ namespace MusicLibraryNHTests
 
             _repo.Create(genre1);
             _repo.Create(genre2);
-
-            //_repo._unitOfWork.Commit();
-            //_repo._unitOfWork.BeginTransaction();
-
+            
 
             track1.Genres.Add(genre1);
             track1.Genres.Add(genre2);
@@ -148,9 +139,7 @@ namespace MusicLibraryNHTests
 
             _repo.Create(track1);
             _repo.Create(track2);
-
-            //_repo._unitOfWork.Commit();
-            //_repo._unitOfWork.BeginTransaction();
+            
 
             var pl1 = new Playlist {Name = "My Playlist", Creator = user1, UrlId = "my-playlist"};
 
@@ -170,20 +159,14 @@ namespace MusicLibraryNHTests
 
             var pl2 = new Playlist {Name = "Bezt Songz", Creator = user2, UrlId = "best-songz"};
             _repo.Create(pl2);
-
-            //_repo._unitOfWork.Commit();
-            //_repo._unitOfWork.BeginTransaction();
-
+            
 
             var playlistsTracks12 = new PlaylistTrack {Playlist = pl2, Track = track2};
             var playlistsTracks13 = new PlaylistTrack {Playlist = pl2, Track = track3};
 
             _repo.Create(playlistsTracks12);
             _repo.Create(playlistsTracks13);
-
-            //_repo._unitOfWork.Commit();
-            //_repo._unitOfWork.BeginTransaction();
-
+            
 
             var uspl = new UserSavedPlaylist
             {
@@ -191,9 +174,7 @@ namespace MusicLibraryNHTests
                 SavedPlaylist = pl2
             };
             _repo.Create(uspl);
-
-            //_repo._unitOfWork.Commit();
-
+            
 
             var lt1 = new LikedTrack {Track = track1, User = user1};
             var lt2 = new LikedTrack {Track = track2, User = user1};

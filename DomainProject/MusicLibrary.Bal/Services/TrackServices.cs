@@ -12,86 +12,86 @@ namespace MusicLibrary.Bal.Services
 {
     public class TrackServices : ITrackServices
     {
-        private readonly ITrackRepository _trackRepo;
-        private readonly IUserRepository _userRepo;
+        private readonly ITrackRepository _trackRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ITrackFactory _trackFactory;
 
-        public TrackServices(ITrackRepository trackRepo, IUserRepository userRepo, ITrackFactory trackFactory)
+        public TrackServices(ITrackRepository trackRepository, IUserRepository userRepository, ITrackFactory trackFactory)
         {
-            _trackRepo = trackRepo;
-            _userRepo = userRepo;
+            _trackRepository = trackRepository;
+            _userRepository = userRepository;
             _trackFactory = trackFactory;
         }
 
         public void Like(int trackId, int userId)
         {
-            var user = _userRepo.GetById<User>(userId) ?? throw new Exception("No user for id " + nameof(userId) + " found");
-            var track = _trackRepo.GetById<Track>(trackId) ?? throw new Exception("No track for id " + nameof(trackId) + " found");
+            var user = _userRepository.GetById<User>(userId) ?? throw new Exception("No user for id " + nameof(userId) + " found");
+            var track = _trackRepository.GetById<Track>(trackId) ?? throw new Exception("No track for id " + nameof(trackId) + " found");
 
-            if (!_trackRepo.IsTrackLikedByUser(trackId, userId))
-                _trackRepo.Like(track, user);
+            if (!_trackRepository.IsTrackLikedByUser(trackId, userId))
+                _trackRepository.Like(track, user);
         }
 
         public void Unlike(int trackId, int userId)
         {
-            var user = _userRepo.GetById<User>(userId) ?? throw new Exception("No user for id " + nameof(userId) + " found");
-            var track = _trackRepo.GetById<Track>(trackId) ?? throw new Exception("No track for id " + nameof(trackId) + " found");
+            var user = _userRepository.GetById<User>(userId) ?? throw new Exception("No user for id " + nameof(userId) + " found");
+            var track = _trackRepository.GetById<Track>(trackId) ?? throw new Exception("No track for id " + nameof(trackId) + " found");
 
-            if (_trackRepo.IsTrackLikedByUser(track.Id, user.Id))
+            if (_trackRepository.IsTrackLikedByUser(track.Id, user.Id))
             {
-                _trackRepo.Unlike(track.Id, user.Id);
+                _trackRepository.Unlike(track.Id, user.Id);
             }
         }
 
         public IList<TrackThumbnailDto> GetLikedTracks(int userId, PageData pageData)
         {
-            return _trackRepo.GetLikedTracks(userId, pageData);
+            return _trackRepository.GetLikedTracks(userId, pageData);
         }
 
         public int GetTracksLikedCount(int userId)
         {
-            return _trackRepo.GetTracksLikedCount(userId);
+            return _trackRepository.GetTracksLikedCount(userId);
         }
 
         public int GetTracksUploadedCount(int userId)
         {
-            return _trackRepo.GetTracksUploadedCount(userId);
+            return _trackRepository.GetTracksUploadedCount(userId);
         }
 
         public string UploadTrack(UploadTrackDto trackDto)
         {
-            var uploader = _userRepo.GetByName(trackDto.UploaderUserName);
+            var uploader = _userRepository.GetByName(trackDto.UploaderUserName);
             var track = _trackFactory.Produce(trackDto);
 
             track.Uploader = uploader;
 
-            var existingUrlIds = _trackRepo.GetTrackTitles(uploader.Id);
+            var existingUrlIds = _trackRepository.GetTrackTitles(uploader.Id);
 
             track.UrlId = UrlIdGenerator.Generate(track.Title, existingUrlIds);
 
-            _trackRepo.Create(track);
+            _trackRepository.Create(track);
 
             return track.UrlId;
         }
 
         public IList<TrackThumbnailDto> GetUploadedTracks(int userId, PageData pageData)
         {
-            return _trackRepo.GetUploadedTracks(userId, pageData);
+            return _trackRepository.GetUploadedTracks(userId, pageData);
         }
 
         public Track FindById(int intId)
         {
-            return _trackRepo.GetById<Track>(intId);
+            return _trackRepository.GetById<Track>(intId);
         }
 
         public bool IsTrackLikedByUser(int trackId, int userId)
         {
-            return _trackRepo.IsTrackLikedByUser(trackId, userId);
+            return _trackRepository.IsTrackLikedByUser(trackId, userId);
         }
 
         public Track GetByUrlId(int userId, string urlId)
         {
-            return _trackRepo.GetByUrlId(userId, urlId);
+            return _trackRepository.GetByUrlId(userId, urlId);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace MusicLibrary.Dal.Implementations
     {
         private ITransaction _transaction;
 
-        public ISession Session { get; private set; }
+        public ISession Session { get; }
         
         public UnitOfWork()
         {
@@ -24,13 +24,11 @@ namespace MusicLibrary.Dal.Implementations
         {
             try
             {
-                // commit transaction if there is one active
                 if (_transaction != null && _transaction.IsActive)
                     _transaction.Commit();
             }
             catch
             {
-                // rollback if there was an exception
                 if (_transaction != null && _transaction.IsActive)
                     _transaction.Rollback();
 

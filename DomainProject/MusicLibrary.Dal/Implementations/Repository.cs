@@ -11,7 +11,7 @@ using Configuration = NHibernate.Cfg.Configuration;
 
 namespace MusicLibrary.Dal.Implementations
 {
-    public class Repository : IRepository//, IDisposable
+    public class Repository : IRepository
     {
         protected ISession Session => _unitOfWork.Session;
 
@@ -83,15 +83,5 @@ namespace MusicLibrary.Dal.Implementations
                 schemaExport.Create(false, true);
             }
         }
-
-        //public void Dispose()
-        //{
-        //    if (Session?.IsOpen == true)
-        //    {
-        //        Session.Flush();
-        //        Session.Close();
-        //        Session.Dispose();
-        //    }
-        //}
     }
 }
