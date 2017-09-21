@@ -1,8 +1,0 @@
-C:\Users\tudor.tanasescu\OneDrive\DomainProject\MusicLibrary.Domain\bin\Debug\netstandard1.4\MusicLibrary.Domain.deps.json
-C:\Users\tudor.tanasescu\OneDrive\DomainProject\MusicLibrary.Domain\bin\Debug\netstandard1.4\MusicLibrary.Domain.dll
-C:\Users\tudor.tanasescu\OneDrive\DomainProject\MusicLibrary.Domain\bin\Debug\netstandard1.4\FluentNHibernate.dll
-C:\Users\tudor.tanasescu\OneDrive\DomainProject\MusicLibrary.Domain\bin\Debug\netstandard1.4\FluentNHibernate.pdb
-C:\Users\tudor.tanasescu\OneDrive\DomainProject\MusicLibrary.Domain\bin\Debug\netstandard1.4\FluentNHibernate.xml
-C:\Users\tudor.tanasescu\OneDrive\DomainProject\MusicLibrary.Domain\obj\Debug\netstandard1.4\MusicLibrary.Domain.csprojResolveAssemblyReference.cache
-C:\Users\tudor.tanasescu\OneDrive\DomainProject\MusicLibrary.Domain\obj\Debug\netstandard1.4\MusicLibrary.Domain.csproj.ResolveComReference.cache
-C:\Users\tudor.tanasescu\OneDrive\DomainProject\MusicLibrary.Domain\obj\Debug\netstandard1.4\MusicLibrary.Domain.AssemblyInfo.cs
