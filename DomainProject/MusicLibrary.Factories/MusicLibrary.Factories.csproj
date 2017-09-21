@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\IPlaylistFactory.cs" />
+    <Compile Include="Implementations\PlaylistFactory.cs" />
     <Compile Include="Implementations\TrackFactory.cs" />
     <Compile Include="Implementations\UserFactory.cs" />
     <Compile Include="Interfaces\ITrackFactory.cs" />

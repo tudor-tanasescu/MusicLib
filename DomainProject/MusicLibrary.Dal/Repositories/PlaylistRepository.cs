@@ -56,7 +56,7 @@ namespace MusicLibrary.Dal.Repositories
                     .Select(() => track.Title).WithAlias(() => dto.Title)
                     .Select(() => track.UrlId).WithAlias(() => dto.UrlId)
                     .Select(() => track.Artwork).WithAlias(() => dto.Artwork)
-                    .Select(() => track.DateAdded).WithAlias(() => dto.DateAdded)
+                    .Select(() => track.DateUploaded).WithAlias(() => dto.DateUploaded)
                     .Select(() => track.Likes).WithAlias(() => dto.Likes)
                     .Select(() => uploader.Alias).WithAlias(() => dto.UploaderAlias)
                     .Select(() => uploader.UserName).WithAlias(() => dto.UploaderUserName))

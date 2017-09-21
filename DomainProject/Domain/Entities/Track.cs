@@ -13,7 +13,7 @@ namespace MusicLibrary.Domain.Entities
         public virtual int Likes { get; set; }
         public virtual IList<Genre> Genres { get; set; }
         public virtual TimeSpan Duration { get; set; }
-        public virtual DateTime DateAdded { get; set; } = DateTime.UtcNow;
+        public virtual DateTime DateUploaded { get; set; } = DateTime.UtcNow;
         public virtual int? YearReleased { get; set; }
         public virtual IList<Comment> Comments { get; set; }
 

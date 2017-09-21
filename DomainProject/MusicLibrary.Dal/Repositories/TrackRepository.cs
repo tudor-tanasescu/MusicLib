@@ -23,7 +23,7 @@ namespace MusicLibrary.Dal.Repositories
             TrackThumbnailDto dto = null;
             return Session.QueryOver<Track>()
                 .Where(t => t.Uploader.Id == userId)
-                .OrderBy(t => t.DateAdded).Desc
+                .OrderBy(t => t.DateUploaded).Desc
                 .JoinAlias(t=>t.Uploader, ()=>uploader)
                 .SelectList(l=>l
                     .Select(t=>t.Id).WithAlias(()=>dto.Id)

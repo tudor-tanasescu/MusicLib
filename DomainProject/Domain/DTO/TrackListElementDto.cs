@@ -11,6 +11,6 @@ namespace MusicLibrary.Domain.DTO
         public string UploaderUserName { get; set; }
         public int Likes { get; set; }
         public string Artwork { get; set; }
-        public DateTime DateAdded { get; set; }
+        public DateTime DateUploaded { get; set; }
     }
 }

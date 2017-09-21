@@ -5,36 +5,20 @@ using MusicLibrary.Dal.Interfaces;
 using MusicLibrary.Domain.DTO;
 using MusicLibrary.Domain.Entities;
 using MusicLibrary.Domain.Models;
+using MusicLibrary.Factories.Implementations;
 
 namespace MusicLibrary.Bal.Services
 {
     public class PlaylistServices : IPlaylistServices
     {
         private readonly IPlaylistRepository _playlistRepo;
-        private readonly IUserRepository _userRepo;
+        private readonly IPlaylistFactory _playlistFactory;
 
-        public PlaylistServices(IPlaylistRepository playlistRepo, IUserRepository userRepo)
+        public PlaylistServices(IPlaylistRepository playlistRepo, IPlaylistFactory playlistFactory)
         {
             _playlistRepo = playlistRepo;
-            _userRepo = userRepo;
+            _playlistFactory = playlistFactory;
         }
-
-        //public IList<ConcisePlaylistDTO> GetConcisePlaylistDtos(int userId )
-        //{
-        //    var playlists = _playlistRepo.GetPlaylistsCreatedByUser(userId);
-        //    IList<ConcisePlaylistDTO> concisePlaylists = new List<ConcisePlaylistDTO>(playlists.Count);
-        //    foreach (var playlist in playlists)
-        //    {
-        //        var dto = new ConcisePlaylistDTO
-        //        {
-        //            Name = playlist.Name,
-        //            Artwork = _playlistRepo.GetArtwork(playlist.Id).Value,
-        //            trackCount = playlist.PlaylistsTracks.Count
-        //        };
-        //        concisePlaylists.Add(dto);
-        //    }
-        //    return concisePlaylists;
-        //}
 
         public void AddTrack(int trackId, int playlistId)
         {
@@ -61,15 +45,11 @@ namespace MusicLibrary.Bal.Services
 
         public void AddTrackToNewPlaylist(int trackId, string playlistName, int userId)
         {
-            if (playlistName == null) throw new ArgumentNullException(nameof(playlistName));
-
-            var user = _playlistRepo.GetById<User>(userId) ?? throw new ArgumentNullException(nameof(userId));
-
-            var playlist = new Playlist{Name = playlistName, Creator = user};
-
+            var user = _playlistRepo.GetById<User>(userId);
+            
+            var playlist = _playlistFactory.Produce(playlistName, user);
 
             playlist.UrlId = _playlistRepo.GenerateUrlId(playlist.Name, userId);
-
 
             _playlistRepo.Create(playlist);
 

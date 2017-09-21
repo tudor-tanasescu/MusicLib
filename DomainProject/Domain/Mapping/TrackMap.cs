@@ -22,7 +22,7 @@ namespace MusicLibrary.Domain.Mapping
                 .Nullable()
                 .Length(1000);
 
-            Map(track => track.DateAdded)
+            Map(track => track.DateUploaded)
                 .Not.Nullable();
 
             Map(track => track.Duration)
