@@ -34,7 +34,11 @@ namespace MusicLibrary.Web.Controllers
                 .PasswordSignIn(model.UserName, model.Password, false, false);
             if (result == SignInStatus.Success)
             {
-                return Redirect(returnUrl);
+                if (Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
