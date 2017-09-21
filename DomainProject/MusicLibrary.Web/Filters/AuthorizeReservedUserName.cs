@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using MusicLibrary.Web.Data;
 
 namespace MusicLibrary.Web.Filters
 {
@@ -9,7 +10,7 @@ namespace MusicLibrary.Web.Filters
         {
             if (filterContext == null) throw new ArgumentNullException(nameof(filterContext));
 
-            if (filterContext.RequestContext.RouteData.Values["username"] as string == "you")
+            if (filterContext.RequestContext.RouteData.Values["username"] as string == Reserved.UserName.You)
                 base.OnAuthorization(filterContext);
         }
     }

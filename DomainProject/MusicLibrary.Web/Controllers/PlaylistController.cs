@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MusicLibrary.Bal.Interfaces;
 using MusicLibrary.Domain.Models;
+using MusicLibrary.Web.Data;
 using MusicLibrary.Web.Filters;
 using MusicLibrary.Web.Models;
 
@@ -25,7 +26,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult GetCreatedPlaylistsThumbnails(string username, int page, int pageSize)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -40,7 +41,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult GetCreatedPlaylistsCount(string username)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -55,7 +56,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult GetSavedPlaylistThumbnails(string username, int page, int pageSize)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -70,7 +71,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult GetSavedPlaylistsCount(string username)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,10 +93,9 @@ namespace MusicLibrary.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAjaxRequestModel]
         public ActionResult AddToNewPlaylist(AddTrackToNewPlaylistViewModel model)
         {
-            if (!ModelState.IsValid) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             _playlistServices.AddTrackToNewPlaylist(model.TrackId, model.NewPlaylistName, CurrentUserId);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -103,10 +103,9 @@ namespace MusicLibrary.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAjaxRequestModel]
         public ActionResult AddToExistingPlaylist(AddTrackToExistingPlaylistViewModel model)
         {
-            if (!ModelState.IsValid) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             _playlistServices.AddTrack(model.TrackId, model.ExistingPlaylistId);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -114,10 +113,9 @@ namespace MusicLibrary.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAjaxRequestModel]
         public ActionResult RemoveFromPlaylist(AddTrackToExistingPlaylistViewModel model)
         {
-            if (!ModelState.IsValid) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             _playlistServices.RemoveTrack(model.TrackId, model.ExistingPlaylistId);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -125,10 +123,9 @@ namespace MusicLibrary.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAjaxRequestModel]
         public ActionResult RenamePlaylist(RenamePlaylistViewModel viewModel)
         {
-            if (!ModelState.IsValid) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             _playlistServices.Rename(viewModel.PlaylistId, viewModel.Name);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -136,10 +133,9 @@ namespace MusicLibrary.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAjaxRequestModel]
         public ActionResult DeletePlaylist(DeletePlaylistViewModel model)
         {
-            if (!ModelState.IsValid) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             _playlistServices.Delete(model.PlaylistId);
 
             return RedirectToAction("Playlists", "Profile");

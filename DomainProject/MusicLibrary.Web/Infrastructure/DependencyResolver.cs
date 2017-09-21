@@ -41,6 +41,7 @@ namespace MusicLibrary.Web.Infrastructure
         {
             _kernel.Bind<ISession>().ToMethod(context => SessionFactory.Instance.OpenSession()).InRequestScope();
 
+            _kernel.Bind<IPlaylistFactory>().To<PlaylistFactory>().InRequestScope();
             _kernel.Bind<ITrackFactory>().To<TrackFactory>().InRequestScope();
             _kernel.Bind<IUserFactory>().To<UserFactory>().InRequestScope();
 

@@ -32,12 +32,13 @@ namespace MusicLibrary.Domain.Mapping
                 .Not.Nullable();
 
             Map(track => track.YearReleased)
-                .Not.Nullable();
+                .Nullable();
 
             Map(track => track.Artwork)
                 .Nullable();
 
             References(t => t.Uploader)
+                .Not.Nullable()
                 .UniqueKey("U_UrlId_UploaderId")
                 .Cascade.SaveUpdate();
 

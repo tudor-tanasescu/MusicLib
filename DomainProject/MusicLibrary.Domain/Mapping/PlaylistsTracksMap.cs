@@ -11,9 +11,11 @@ namespace MusicLibrary.Domain.Mapping
                 .GeneratedBy.Identity();
 
             References(pt => pt.Track)
+                .Not.Nullable()
                 .UniqueKey("U_Playlist_Track");
 
             References(pt => pt.Playlist)
+                .Not.Nullable()
                 .UniqueKey("U_Playlist_Track");
 
             Map(pt=>pt.DateAdded)

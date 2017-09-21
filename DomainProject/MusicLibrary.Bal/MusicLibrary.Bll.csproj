@@ -58,7 +58,7 @@
     <Compile Include="Services\UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\MusicLibrary.Domain.csproj">
+    <ProjectReference Include="..\MusicLibrary.Domain\MusicLibrary.Domain.csproj">
       <Project>{A652109F-12F8-473B-B0B1-C4C6F71456A2}</Project>
       <Name>MusicLibrary.Domain</Name>
     </ProjectReference>

@@ -18,9 +18,11 @@ namespace MusicLibrary.Domain.Mapping
                 .Not.Nullable();
 
             References(c => c.User)
+                .Not.Nullable()
                 .Cascade.SaveUpdate();
 
             References(c => c.Track)
+                .Not.Nullable()
                 .Cascade.SaveUpdate();
         }
     }

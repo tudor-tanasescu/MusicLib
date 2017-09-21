@@ -30,6 +30,7 @@ namespace MusicLibrary.Domain.Mapping
                 .Length(1000);
 
             References(pl => pl.Creator)
+                .Not.Nullable()
                 .UniqueKey("U_UrlId_CreatorId")
                 .Cascade.SaveUpdate();
 

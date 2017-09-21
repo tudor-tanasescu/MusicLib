@@ -23,8 +23,7 @@ namespace MusicLibrary.Domain.Mapping
                 .Length(20);
 
             Map(u => u.PasswordHash)
-                .Not.Nullable()
-                .Length(30);
+                .Not.Nullable();
 
             Map(u => u.DateJoined)
                 .Not.Nullable();
@@ -33,18 +32,23 @@ namespace MusicLibrary.Domain.Mapping
                 .Not.Nullable();
 
             HasMany(u => u.UserPlaylists)
+                .Inverse()
                 .Cascade.AllDeleteOrphan();
 
             HasMany(u => u.SavedPlaylists)
+                .Inverse()
                 .Cascade.AllDeleteOrphan();
 
             HasMany(u => u.LikedTracks)
+                .Inverse()
                 .Cascade.AllDeleteOrphan();
 
             HasMany(u => u.Followers)
+                .Inverse()
                 .Cascade.AllDeleteOrphan();
 
             HasMany(u => u.Following)
+                .Inverse()
                 .Cascade.AllDeleteOrphan();
         }
     }

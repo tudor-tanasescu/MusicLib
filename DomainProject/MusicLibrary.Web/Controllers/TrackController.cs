@@ -7,6 +7,7 @@ using MusicLibrary.Domain.DTO;
 using MusicLibrary.Domain.Models;
 using MusicLibrary.Web.Filters;
 using MusicLibrary.Web.Models;
+using MusicLibrary.Web.Data;
 
 namespace MusicLibrary.Web.Controllers
 {
@@ -27,7 +28,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult GetLikedTracksThumbnails(string username, int page, int pageSize)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -42,7 +43,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult GetLikedTracksCount(string username)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             var count = _trackServices.GetTracksLikedCount(user.Id);
 
             return Content(count.ToString());
@@ -52,7 +53,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult GetUploadedTracksThumbnails(string username, int page, int pageSize)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -67,7 +68,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult GetUploadedTracksCount(string username)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

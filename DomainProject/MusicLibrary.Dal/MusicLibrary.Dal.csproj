@@ -69,7 +69,7 @@
     <Compile Include="Utils\UrlIdGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\MusicLibrary.Domain.csproj">
+    <ProjectReference Include="..\MusicLibrary.Domain\MusicLibrary.Domain.csproj">
       <Project>{a652109f-12f8-473b-b0b1-c4c6f71456a2}</Project>
       <Name>MusicLibrary.Domain</Name>
     </ProjectReference>

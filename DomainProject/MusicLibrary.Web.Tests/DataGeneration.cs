@@ -116,25 +116,24 @@ namespace MusicLibraryNHTests
                 Artwork = ""
             };
 
-            var genre1 = new Genre{Name = "DeepHouse"};
-            var genre2 = new Genre{ Name = "Pop" }; 
-
-            var comment1 = new Comment {User = user3, Content = "This Track Rocks!"};
-            var comment3 = new Comment {User = user2, Content = "Dope beats"};
-            var comment2 = new Comment {User = user4, Content = "This Track Sucks!"};
-
-
-            track1.AddComment(comment1);
-            track1.AddComment(comment3);
-            track2.AddComment(comment2);
-
             _repo.Create(track1);
             _repo.Create(track2);
             _repo.Create(track3);
             _repo.Create(track4);
 
+            _repo.Dispose();
+            _repo = new Repository(SessionFactory.Instance.OpenSession());
+
+            var genre1 = new Genre{Name = "DeepHouse"};
+            var genre2 = new Genre{ Name = "Pop" }; 
+
+            var comment1 = new Comment {User = user3, Content = "This Track Rocks!", Track = track1};
+            var comment3 = new Comment {User = user2, Content = "Dope beats", Track = track1 };
+            var comment2 = new Comment {User = user4, Content = "This Track Sucks!", Track = track2 };
+
             _repo.Create(comment1);
             _repo.Create(comment2);
+            _repo.Create(comment3);
 
             _repo.Create(genre1);
             _repo.Create(genre2);

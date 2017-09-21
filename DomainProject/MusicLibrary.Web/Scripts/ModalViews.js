@@ -25,7 +25,6 @@
                 }
 
                 $frm.trigger("submitOk", { msg:"ok" });
-                //console.log(msg);
             }
         });
     });

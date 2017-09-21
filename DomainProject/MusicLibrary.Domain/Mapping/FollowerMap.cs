@@ -11,10 +11,12 @@ namespace MusicLibrary.Domain.Mapping
                 .GeneratedBy.Identity();
 
             References(f => f.FollowingUser)
+                .Not.Nullable()
                 .Cascade.SaveUpdate()
                 .UniqueKey("U_Follower_Followed");
 
             References(f => f.FollowedUser)
+                .Not.Nullable()
                 .Cascade.SaveUpdate()
                 .UniqueKey("U_Follower_Followed");
 

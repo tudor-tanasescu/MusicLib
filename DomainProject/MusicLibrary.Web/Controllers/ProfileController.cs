@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using MusicLibrary.Bal.Interfaces;
+using MusicLibrary.Web.Data;
 using MusicLibrary.Web.Filters;
 
 namespace MusicLibrary.Web.Controllers
@@ -16,7 +17,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult Index(string username)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 ViewBag.ErrorMessage = "We could not find the user.";
@@ -29,7 +30,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult Playlists(string username)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 ViewBag.ErrorMessage = "We could not find the user.";
@@ -43,7 +44,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult Saved(string username)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 ViewBag.ErrorMessage = "We could not find the user.";
@@ -57,7 +58,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult Tracks(string username)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 ViewBag.ErrorMessage = "We could not find the user.";
@@ -71,7 +72,7 @@ namespace MusicLibrary.Web.Controllers
         [AuthorizeOnReservedUserName]
         public ActionResult Likes(string username)
         {
-            var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            var user = _userServices.GetByUserName(username == Reserved.UserName.You ? User.Identity.Name : username);
             if (user == null)
             {
                 ViewBag.ErrorMessage = "We could not find the user.";

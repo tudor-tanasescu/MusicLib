@@ -11,7 +11,7 @@ namespace MusicLibrary.Domain.Entities
         public virtual string Artwork { get; set; }
         public virtual User Uploader { get; set; }
         public virtual int Likes { get; set; }
-        public virtual IList<Genre> Genres { get; set; }
+        public virtual IList<Genre> Genres { get; set; } = new List<Genre>();
         public virtual TimeSpan Duration { get; set; }
         public virtual DateTime DateUploaded { get; set; } = DateTime.UtcNow;
         public virtual int? YearReleased { get; set; }

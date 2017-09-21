@@ -10,9 +10,11 @@ namespace MusicLibrary.Domain.Mapping
             Id(lt => lt.Id)
                 .GeneratedBy.Identity();
 
-            References(lt => lt.User);
+            References(lt => lt.User)
+                .Not.Nullable();
 
-            References(lt => lt.Track);
+            References(lt => lt.Track)
+                .Not.Nullable();
 
             Map(lt => lt.DateLiked)
                 .Not.Nullable();

@@ -32,6 +32,7 @@ namespace MusicLibrary.Web.Controllers
 
             var result = HttpContext.GetOwinContext().Get<SignInManager>()
                 .PasswordSignIn(model.UserName, model.Password, false, false);
+
             if (result == SignInStatus.Success)
             {
                 if (Url.IsLocalUrl(returnUrl))
