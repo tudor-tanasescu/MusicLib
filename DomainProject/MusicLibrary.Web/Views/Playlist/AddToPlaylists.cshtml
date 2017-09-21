@@ -1,0 +1,33 @@
+﻿@model IList<MusicLibrary.Domain.DTO.AddToPlaylistDto>
+<div class="list-group">
+    @foreach (var playlist in Model)
+    {
+        <div class="list-group-item col-md-12 col-sm-12" playlistId="@playlist.UrlId">
+            @using (Html.BeginForm(playlist.HasTrack ? "RemoveFromPlaylist" : "AddToExistingPlaylist", "User", FormMethod.Post, new {@class = "post-using-ajax addToForm"}))
+            {
+                <input id="TrackId" class="trackIdContainer" name="TrackId" type="hidden" value="0">
+                @Html.Hidden("ExistingPlaylistId", playlist.PlaylistId)
+                <div class="col-md-2 col-sm-2">
+                    <div class="artwork">
+                        <img src="@playlist.Artwork" title="@playlist.Name" alt="&nbsp;" class="placeholder"/>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-8 track_title">
+                    @Html.ActionLink(playlist.Name, "Playlist", "User", new { username = playlist.CreatorUserName, id = playlist.UrlId }, null)
+                </div>
+                <button type="submit" class="col-md-2 col-sm-2 btn btn-default addToPlaylistButton">
+                    @{
+                        if (playlist.HasTrack)
+                        {
+                            @:Remove
+                        }
+                        else
+                        {
+                            @:Add
+                        }
+                    }
+                </button>
+            }
+        </div>
+    }
+</div>

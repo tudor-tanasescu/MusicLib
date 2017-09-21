@@ -1,0 +1,39 @@
+﻿@model MusicLibrary.Web.Models.AddTrackToNewPlaylistViewModel
+
+<link href="~/Content/Thumbnails.css" rel="stylesheet" type="text/css" />
+<div class="modal fade" id="addToPlaylistModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 0;">
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <ul class="nav nav-tabs nav-justified" >
+                    <li class="active">
+                        <a data-toggle="tab" href="#existing" style="border-bottom: 0 solid #FFF;">Add to existing playlists</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#create" style="border-bottom: 0 solid #FFF;">Create new playlist</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body ">
+                <div class="tab-content">
+                    <div id="existing" class="tab-pane fade in active list-group container-fluid" style="padding: 0; margin-bottom: 0;">
+                        <h3>Add to existing playlists</h3>
+                    </div>
+                    <div id="create" class="tab-pane fade in container-fluid">
+                        <h4>Create new playlist</h4>
+                        @using (Html.BeginForm("AddToNewPlaylist", "Playlist", FormMethod.Post, new{@class="post-using-ajax"}))
+                        {
+                            @Html.HiddenFor(m=>m.TrackId)
+                            @Html.EditorFor(m => m.NewPlaylistName)
+                            <button id="newPlaylistButton" type="submit" class="btn btn-default">Save</button>
+                        }
+                    </div>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>*@
+        </div>
+    </div>
+</div>

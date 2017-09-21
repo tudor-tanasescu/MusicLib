@@ -1,0 +1,18 @@
+﻿@model MusicLibrary.Domain.DTO.PlaylistDto
+<div class="col-md-2 col-sm-3">
+    <div class="thumbnail">
+        <div class="artwork">
+            <a href="@Url.Action("Playlist", "User", new { username = Model.CreatorUserName, id = Model.UrlId })">
+                <img src="@Model.Artwork" title="@Model.Name" alt="&nbsp;" class="placeholder"/>
+            </a>
+        </div>
+        <div class="description">
+            <div class="track_title truncated">
+                @Html.ActionLink(Model.Name, "Playlist", "User", new { username = Model.CreatorUserName, id = Model.UrlId }, null)
+            </div>
+            <div class="track_uploader truncated">
+                @Html.ActionLink($"by {Model.CreatorAlias}", "Tracks", "Profile", new { username = Model.CreatorUserName }, null)
+            </div>
+        </div>
+    </div>
+</div>

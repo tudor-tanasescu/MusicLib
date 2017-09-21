@@ -1,0 +1,28 @@
+﻿@using MusicLibrary.Web.Controllers
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.ProfileCategories = new List<string>
+    {
+        nameof(ProfileController.Tracks),
+        nameof(ProfileController.Likes),
+        nameof(ProfileController.Playlists),
+        nameof(ProfileController.Saved)
+    };
+}
+
+<div class="navbar navbar-default navbar-static-top" style="border-width: 0 0 1px; background-color: white;">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            @foreach (var category in ViewBag.ProfileCategories)
+            {
+                <li class="@(category == ViewBag.Category ? "active" : "")">
+                    @Html.ActionLink((string) category, (string) category, "Profile")
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@RenderBody()

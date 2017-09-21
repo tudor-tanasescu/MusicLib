@@ -1,0 +1,51 @@
+﻿@using MusicLibrary.Web.Models
+@model MusicLibrary.Domain.Entities.Track
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="container" style="margin-top: 20px">
+    <div class="col-md-4 col-sm-4">
+        <div class="artwork">
+            <img class="img-responsive placeholder" src="@Model.Artwork" alt="&nbsp;"/>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-8" trackId="@Model.Id">
+        <div class="track_uploader truncated">
+            @Html.ActionLink($"{Model.Uploader.Alias}", "Index", "Profile", new { username = Model.Uploader.UserName }, null)
+        </div>
+        <div>
+            @Model.Title
+        </div>
+        @if (Request.IsAuthenticated)
+        {
+            <div class="btn-group">
+                <a class="likeButton btn btn-default">
+                    @{
+                        if (ViewBag.IsLiked)
+                        {
+                            <span class="glyphicon glyphicon-heart" title="Unlike"></span>
+                        }
+                        else
+                        {
+                            <span class="glyphicon glyphicon-heart-empty" title="Like"></span>
+                        }
+                    }
+                </a>
+                <a class="addToButton btn btn-default" data-toggle="modal" data-target="#addToPlaylistModal" title="Add to">
+                    <span class=" glyphicon glyphicon-plus-sign"></span>
+                </a>
+            </div>
+            using (Html.BeginForm("Like", "Track", FormMethod.Post, new {id = "likeform"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+            }
+        }
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Partial("AddTo", new AddTrackToNewPlaylistViewModel {TrackId = Model.Id})
+    }
+</div>

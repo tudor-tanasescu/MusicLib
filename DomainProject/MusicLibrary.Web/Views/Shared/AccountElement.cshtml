@@ -1,0 +1,43 @@
+﻿<ul class="nav navbar-nav navbar-right">
+    @if (!Request.IsAuthenticated)
+    {
+        <li>@Html.ActionLink("LogIn", "LogIn", "Account")</li>
+        <li>@Html.ActionLink("Register", "Register", "Account")</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Upload", "Upload", "Track")</li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" style="padding-top: 10px;padding-bottom: 10px;" data-toggle="dropdown">
+                <img src="http://placehold.it/500x500" class="img-circle avatar" alt="&nbsp;">
+                    @User.Identity.Name
+                    <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                    @Html.ActionLink("My Tracks", "Tracks", "Profile", new {username = "you"}, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Likes", "Likes", "Profile", new {username = "you"}, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Playlists", "Playlists", "Profile", new { username = "you" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Saved", "Saved", "Profile", new { username = "you" }, null)
+                </li>
+                <li>
+                    <div class="divider"></div>
+                </li>
+                <li>
+                    <a href="#" onclick="javascript: $('#logoutForm').submit();">LogOff</a>
+                </li>
+            </ul>
+
+            @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new {id = "logoutForm"}))
+            {
+                @Html.AntiForgeryToken()
+            }
+        </li>
+    }
+</ul>

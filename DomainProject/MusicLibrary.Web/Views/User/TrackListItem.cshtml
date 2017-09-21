@@ -1,0 +1,19 @@
+﻿@model MusicLibrary.Domain.DTO.TrackListElementDto
+
+<div class="list-group-item col-md-12 col-sm-12">
+    <div class="col-md-2 col-sm-3">
+        <div class="artwork">
+            <a href="@Url.Action("Track", "User", new { username = Model.UploaderUserName, id = Model.UrlId })">
+                <img src="@Model.Artwork" title="@Model.Title" alt="&nbsp;" class="placeholder" />
+            </a>
+        </div>
+    </div>
+    <div class="trackli_item_content col-md-10 col-sm-9">
+        <div class="h3 truncated">
+            @Html.ActionLink(Model.Title, "Track", "User", new { username = Model.UploaderUserName, id = Model.UrlId }, null)
+        </div>
+        <div class="truncated">
+            @Html.ActionLink($"by {Model.UploaderAlias}", "", "Profile", new { username = Model.UploaderUserName }, null)
+        </div>
+    </div>
+</div>

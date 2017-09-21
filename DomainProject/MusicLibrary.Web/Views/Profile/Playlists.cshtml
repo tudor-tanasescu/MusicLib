@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Playlists you created";
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+}
+
+<link href="~/Content/Thumbnails.css" rel="stylesheet" type="text/css" />
+<div class="container">
+    <h4 class="category_title">Playlists created</h4>
+    <ul id="playlistContainer"></ul>
+</div>
+@Scripts.Render("~/Scripts/DynamicLoading.js")

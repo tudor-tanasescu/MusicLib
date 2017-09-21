@@ -1,0 +1,22 @@
+﻿@model MusicLibrary.Web.Models.RenamePlaylistViewModel
+
+<div class="modal fade " id="renameModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Enter new name:</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("RenamePlaylist", "Playlist", FormMethod.Post, new {id = "playlist-rename-form", @class = "post-using-ajax"}))
+                {
+                    <div class="form-inline">
+                        @Html.HiddenFor(m=>m.PlaylistId)
+                        @Html.TextBoxFor(m => m.Name, new {id = "playlist-name-editor", @class = "form-control"})
+                        <button type="submit" id="" class="btn btn-default playlist-rename-submit">Save</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

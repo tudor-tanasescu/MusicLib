@@ -1,0 +1,7 @@
+﻿@model IList<MusicLibrary.Domain.DTO.TrackThumbnailDto>
+@foreach (var track in Model)
+{
+    <li>
+        @Html.Partial("TrackThumnail", track)
+    </li>
+}
