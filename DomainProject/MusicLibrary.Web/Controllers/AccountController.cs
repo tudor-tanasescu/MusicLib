@@ -18,13 +18,14 @@ namespace MusicLibrary.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult LogIn()
+        public ActionResult LogIn(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View(new LoginViewModel());
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -33,7 +34,7 @@ namespace MusicLibrary.Web.Controllers
                 .PasswordSignIn(model.UserName, model.Password, false, false);
             if (result == SignInStatus.Success)
             {
-                return RedirectToAction("Index", "Home");
+                return Redirect(returnUrl);
             }
 
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
