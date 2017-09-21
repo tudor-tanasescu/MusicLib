@@ -24,7 +24,7 @@ namespace MusicLibrary.Bal.Services
         {
             if (trackId <= 0) throw new ArgumentOutOfRangeException(nameof(trackId));
             if (playlistId <= 0) throw new ArgumentOutOfRangeException(nameof(playlistId));
-            _playlistRepo.AddTrackTo(trackId, playlistId);
+            _playlistRepo.AddTrack(trackId, playlistId);
         }
 
         public PlaylistWithTracksDto GetPlaylistWithTracks(int userId, string id)

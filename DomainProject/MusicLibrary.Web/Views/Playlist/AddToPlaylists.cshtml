@@ -3,7 +3,7 @@
     @foreach (var playlist in Model)
     {
         <div class="list-group-item col-md-12 col-sm-12" playlistId="@playlist.UrlId">
-            @using (Html.BeginForm(playlist.HasTrack ? "RemoveFromPlaylist" : "AddToExistingPlaylist", "User", FormMethod.Post, new {@class = "post-using-ajax addToForm"}))
+            @using (Html.BeginForm(playlist.HasTrack ? "RemoveFromPlaylist" : "AddToExistingPlaylist", "Playlist", FormMethod.Post, new {@class = "post-using-ajax addToForm"}))
             {
                 <input id="TrackId" class="trackIdContainer" name="TrackId" type="hidden" value="0">
                 @Html.Hidden("ExistingPlaylistId", playlist.PlaylistId)

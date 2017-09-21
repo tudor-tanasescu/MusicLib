@@ -11,7 +11,7 @@ using MusicLibrary.Web.Data;
 
 namespace MusicLibrary.Web.Controllers
 {
-    public class TrackController : Controller
+    public class TrackController : BaseController
     {
         private readonly ITrackServices _trackServices;
         private readonly IUserServices _userServices;

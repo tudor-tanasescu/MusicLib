@@ -60,6 +60,7 @@
     <Compile Include="DTO\UploadTrackDto.cs" />
     <Compile Include="DTO\UserRegisterDto.cs" />
     <Compile Include="Entities\Genre.cs" />
+    <Compile Include="Entities\PlaylistTrack.cs" />
     <Compile Include="Mapping\CommentMap.cs" />
     <Compile Include="Mapping\FollowerMap.cs" />
     <Compile Include="Mapping\LikedTrackMap.cs" />

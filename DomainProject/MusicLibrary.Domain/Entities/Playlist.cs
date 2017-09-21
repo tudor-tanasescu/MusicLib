@@ -10,8 +10,8 @@ namespace MusicLibrary.Domain.Entities
         public virtual string UrlId { get; set; }
         public virtual User Creator { get; set; }
         public virtual PlaylistOrder PlaylistOrder { get; set; }
-        public virtual IList<Genre> Genres { get; set; }
-        public virtual IList<PlaylistsTracks> PlaylistsTracks { get; set; }
+        public virtual IList<Genre> Genres { get; set; } = new List<Genre>();
+        public virtual IList<PlaylistTrack> PlaylistsTracks { get; set; } = new List<PlaylistTrack>();
         
         //public virtual TimeSpan Duration => Tracks.Aggregate(new TimeSpan(0), (current, track) => current + track.Duration);
 
@@ -20,17 +20,17 @@ namespace MusicLibrary.Domain.Entities
         public Playlist()
         {
         }
-    }
 
-
-    public class PlaylistsTracks : Entity
-    {
-        public virtual Playlist Playlist { get; set; }
-        public virtual Track Track { get; set; }
-        public virtual DateTime DateAdded { get; set; }= DateTime.UtcNow;
-        
-        public PlaylistsTracks()
+        public virtual void AddTrack(PlaylistTrack playlistTrack)
         {
+            PlaylistsTracks.Add(playlistTrack);
+            playlistTrack.Playlist = this;
+        }
+
+        public virtual void RemoveTrack(PlaylistTrack playlistTrack)
+        {
+            PlaylistsTracks.Remove(playlistTrack);
+            playlistTrack.Playlist = null;
         }
     }
 }

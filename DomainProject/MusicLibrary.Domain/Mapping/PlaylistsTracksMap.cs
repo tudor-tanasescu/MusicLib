@@ -3,7 +3,7 @@ using MusicLibrary.Domain.Entities;
 
 namespace MusicLibrary.Domain.Mapping
 {
-    public class PlaylistsTracksMap : ClassMap<PlaylistsTracks>
+    public class PlaylistsTracksMap : ClassMap<PlaylistTrack>
     {
         public PlaylistsTracksMap()
         {

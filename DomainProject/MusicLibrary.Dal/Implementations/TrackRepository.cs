@@ -9,11 +9,11 @@ using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
 
-namespace MusicLibrary.Dal.Repositories
+namespace MusicLibrary.Dal.Implementations
 {
     public class TrackRepository : Repository, ITrackRepository
     {
-        public TrackRepository(ISession session) : base(session)
+        public TrackRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

@@ -5,7 +5,7 @@ using MusicLibrary.Web.Filters;
 
 namespace MusicLibrary.Web.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
         private readonly IUserServices _userServices;
 

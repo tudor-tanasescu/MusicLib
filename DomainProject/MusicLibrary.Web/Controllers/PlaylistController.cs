@@ -10,7 +10,7 @@ using MusicLibrary.Web.Models;
 
 namespace MusicLibrary.Web.Controllers
 {
-    public class PlaylistController : Controller
+    public class PlaylistController : BaseController
     {
         private readonly IPlaylistServices _playlistServices;
         private readonly IUserServices _userServices;

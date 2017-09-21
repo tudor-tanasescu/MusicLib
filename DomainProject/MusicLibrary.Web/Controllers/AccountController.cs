@@ -8,7 +8,7 @@ using MusicLibrary.Web.Models.Identity;
 
 namespace MusicLibrary.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IUserServices _userServices;
 

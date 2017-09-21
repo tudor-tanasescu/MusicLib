@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -10,15 +9,17 @@ using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using Configuration = NHibernate.Cfg.Configuration;
 
-namespace MusicLibrary.Dal.Repositories
+namespace MusicLibrary.Dal.Implementations
 {
-    public class Repository : IRepository, IDisposable
+    public class Repository : IRepository//, IDisposable
     {
-        protected ISession Session { get; }
+        protected ISession Session => _unitOfWork.Session;
 
-        public Repository(ISession session)
+        public readonly IUnitOfWork _unitOfWork;
+
+        public Repository(IUnitOfWork unitOfWork)
         {
-            Session = session;
+            _unitOfWork = unitOfWork;
         }
 
         public T Load<T>(int id) where T : Entity
@@ -83,14 +84,14 @@ namespace MusicLibrary.Dal.Repositories
             }
         }
 
-        public void Dispose()
-        {
-            if (Session?.IsOpen == true)
-            {
-                Session.Flush();
-                Session.Close();
-                Session.Dispose();
-            }
-        }
+        //public void Dispose()
+        //{
+        //    if (Session?.IsOpen == true)
+        //    {
+        //        Session.Flush();
+        //        Session.Close();
+        //        Session.Dispose();
+        //    }
+        //}
     }
 }

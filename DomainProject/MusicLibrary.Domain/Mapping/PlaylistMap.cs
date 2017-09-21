@@ -35,6 +35,7 @@ namespace MusicLibrary.Domain.Mapping
                 .Cascade.SaveUpdate();
 
             HasMany(pl => pl.PlaylistsTracks)
+                .Inverse()
                 .Cascade.AllDeleteOrphan();
 
             HasManyToMany(pl => pl.Genres);

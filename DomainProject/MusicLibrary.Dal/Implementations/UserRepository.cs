@@ -2,11 +2,11 @@
 using MusicLibrary.Domain.Entities;
 using NHibernate;
 
-namespace MusicLibrary.Dal.Repositories
+namespace MusicLibrary.Dal.Implementations
 {
     public class UserRepository : Repository, IUserRepository
     {
-        public UserRepository(ISession session) : base(session)
+        public UserRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

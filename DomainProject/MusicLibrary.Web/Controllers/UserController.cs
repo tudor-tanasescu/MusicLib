@@ -5,7 +5,7 @@ using MusicLibrary.Bal.Interfaces;
 
 namespace MusicLibrary.Web.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IPlaylistServices _playlistServices;
         private readonly ITrackServices _trackServices;

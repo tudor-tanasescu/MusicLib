@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MusicLibrary.Dal.Repositories;
-using MusicLibrary.Dal.Utils;
+using MusicLibrary.Dal.Implementations;
 using MusicLibrary.Domain.Entities;
 
 namespace MusicLibraryNHTests
@@ -15,29 +14,30 @@ namespace MusicLibraryNHTests
         public void DataInsert()
         {
             Repository.ResetDb();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            _repo = new Repository(new UnitOfWork());
+            _repo._unitOfWork.BeginTransaction();
 
             var user1 = new User
             {
                 UserName = "a.a",
                 Alias = "A A",
                 Email = "a.a@",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g==",
-                RecievesEmailNotifications = false
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w==",
+                RecievesEmailNotifications = true
             };
             var user2 = new User
             {
                 UserName = "b.b",
                 Alias = "B B",
                 Email = "b.b@",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g=="
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w=="
             };
             var user3 = new User
             {
                 UserName = "c.c",
                 Alias = "C C",
                 Email = "c.c@",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g=="
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w=="
             };
 
             var tedUser = new User
@@ -45,7 +45,7 @@ namespace MusicLibraryNHTests
                 UserName = "ted",
                 Alias = "Ted",
                 Email = "ted@mail.com",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g=="
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w=="
             };
 
             var user4 = new User
@@ -53,8 +53,8 @@ namespace MusicLibraryNHTests
                 UserName = "d.d",
                 Alias = "D D",
                 Email = "d.d@",
-                PasswordHash = @"ABtgdITxVqGfE3LkoIRC6fZFPIfcEUwYjBIyw8hBsY/rPHdOKiFw2mnvGms+zRTn2g==",
-                RecievesEmailNotifications = false
+                PasswordHash = @"ALCWeGsuUCwOjdorihLgSCcJuBxSrJajV7WQZgGhVMzg/kcyyotB+aasMAtYwlxX3w==",
+                RecievesEmailNotifications = true
             };
 
             _repo.Create(user1);
@@ -63,8 +63,8 @@ namespace MusicLibraryNHTests
             _repo.Create(user4);
             _repo.Create(tedUser);
 
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            //_repo._unitOfWork.Commit();
+            //_repo._unitOfWork.BeginTransaction();
 
             var fl1 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user3, FollowedUser = user1};
             var fl2 = new Follower {DateFollowed = DateTime.UtcNow, FollowingUser = user4, FollowedUser = user1};
@@ -76,8 +76,8 @@ namespace MusicLibraryNHTests
             _repo.Create(fl3);
             _repo.Create(fl4);
 
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            //_repo._unitOfWork.Commit();
+            //_repo._unitOfWork.BeginTransaction();
 
             var track1 = new Track
             {
@@ -121,8 +121,8 @@ namespace MusicLibraryNHTests
             _repo.Create(track3);
             _repo.Create(track4);
 
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            //_repo._unitOfWork.Commit();
+            //_repo._unitOfWork.BeginTransaction();
 
             var genre1 = new Genre{Name = "DeepHouse"};
             var genre2 = new Genre{ Name = "Pop" }; 
@@ -138,8 +138,8 @@ namespace MusicLibraryNHTests
             _repo.Create(genre1);
             _repo.Create(genre2);
 
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            //_repo._unitOfWork.Commit();
+            //_repo._unitOfWork.BeginTransaction();
 
 
             track1.Genres.Add(genre1);
@@ -149,18 +149,18 @@ namespace MusicLibraryNHTests
             _repo.Create(track1);
             _repo.Create(track2);
 
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            //_repo._unitOfWork.Commit();
+            //_repo._unitOfWork.BeginTransaction();
 
             var pl1 = new Playlist {Name = "My Playlist", Creator = user1, UrlId = "my-playlist"};
 
             _repo.Create(pl1);
 
 
-            var playlistsTracks1 = new PlaylistsTracks {Playlist = pl1, Track = track1};
-            var playlistsTracks2 = new PlaylistsTracks {Playlist = pl1, Track = track2};
-            var playlistsTracks3 = new PlaylistsTracks {Playlist = pl1, Track = track3};
-            var playlistsTracks4 = new PlaylistsTracks {Playlist = pl1, Track = track4};
+            var playlistsTracks1 = new PlaylistTrack {Playlist = pl1, Track = track1};
+            var playlistsTracks2 = new PlaylistTrack {Playlist = pl1, Track = track2};
+            var playlistsTracks3 = new PlaylistTrack {Playlist = pl1, Track = track3};
+            var playlistsTracks4 = new PlaylistTrack {Playlist = pl1, Track = track4};
 
             _repo.Create(playlistsTracks1);
             _repo.Create(playlistsTracks2);
@@ -170,18 +170,19 @@ namespace MusicLibraryNHTests
 
             var pl2 = new Playlist {Name = "Bezt Songz", Creator = user2, UrlId = "best-songz"};
             _repo.Create(pl2);
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+
+            //_repo._unitOfWork.Commit();
+            //_repo._unitOfWork.BeginTransaction();
 
 
-            var playlistsTracks12 = new PlaylistsTracks {Playlist = pl2, Track = track2};
-            var playlistsTracks13 = new PlaylistsTracks {Playlist = pl2, Track = track3};
+            var playlistsTracks12 = new PlaylistTrack {Playlist = pl2, Track = track2};
+            var playlistsTracks13 = new PlaylistTrack {Playlist = pl2, Track = track3};
 
             _repo.Create(playlistsTracks12);
             _repo.Create(playlistsTracks13);
 
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            //_repo._unitOfWork.Commit();
+            //_repo._unitOfWork.BeginTransaction();
 
 
             var uspl = new UserSavedPlaylist
@@ -191,8 +192,7 @@ namespace MusicLibraryNHTests
             };
             _repo.Create(uspl);
 
-            _repo.Dispose();
-            _repo = new Repository(SessionFactory.Instance.OpenSession());
+            //_repo._unitOfWork.Commit();
 
 
             var lt1 = new LikedTrack {Track = track1, User = user1};

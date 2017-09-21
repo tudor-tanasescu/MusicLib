@@ -10,7 +10,7 @@ namespace MusicLibrary.Dal.Interfaces
     {
         IFutureValue<string> GetArtwork(int playlistId);
         bool IsTrackInPlaylist(int trackId, int playlistId);
-        void AddTrackTo(int trackId, int playlistId);
+        void AddTrack(int trackId, int playlistId);
         void RemoveTrack(int trackId, int playlistId);
         IList<TrackListElementDto> GetTracks(int playlistId);
         IList<AddToPlaylistDto> GetAddToPlaylists(int userId);
