@@ -31,23 +31,37 @@ namespace MusicLibrary.Web.Controllers
         public ActionResult Playlist(string username, string id)
         {
             var user = _userServices.GetByUserName(username);
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = "We could not find the user.";
+                return View("Error");
+            }
 
             var playlist = _playlistServices.GetPlaylistWithTracks(user.Id, id);
-
-            if (playlist != null)
+            if (playlist == null)
             {
-                return View(playlist);
+                ViewBag.ErrorMessage = "We could not find the playlist.";
+                return View("Error");
             }
-            return RedirectToAction("Index");
+
+            return View(playlist);
         }
 
         public ActionResult Track(string username, string id)
         {
             var user = _userServices.GetByUserName(username);
-            if (user == null) return RedirectToAction("Index");
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = "We could not find the user.";
+                return View("Error");
+            }
 
             var track = _trackServices.GetByUrlId(user.Id, id);
-            if (track == null) return RedirectToAction("Index");
+            if (track == null)
+            {
+                ViewBag.ErrorMessage = "We could not find the track.";
+                return View("Error");
+            }
 
             if (Request.IsAuthenticated)
             {

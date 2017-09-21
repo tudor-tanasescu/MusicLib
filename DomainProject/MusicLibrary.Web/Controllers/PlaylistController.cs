@@ -26,6 +26,11 @@ namespace MusicLibrary.Web.Controllers
         public ActionResult GetCreatedPlaylistsThumbnails(string username, int page, int pageSize)
         {
             var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             var playlists = _playlistServices.GetCreatedPlaylists(user.Id, new PageData(page, pageSize));
 
             return PartialView("PlaylistThumbnails", playlists);

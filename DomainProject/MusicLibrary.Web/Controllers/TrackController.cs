@@ -28,6 +28,11 @@ namespace MusicLibrary.Web.Controllers
         public ActionResult GetLikedTracksThumbnails(string username, int page, int pageSize)
         {
             var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             var tracks = _trackServices.GetLikedTracks(user.Id, new PageData(page, pageSize));
 
             return PartialView("TrackThumbnails", tracks);

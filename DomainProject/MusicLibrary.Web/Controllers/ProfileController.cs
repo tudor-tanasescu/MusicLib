@@ -17,7 +17,11 @@ namespace MusicLibrary.Web.Controllers
         public ActionResult Index(string username)
         {
             var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
-            if (user == null) return RedirectToAction("Index", "Home");
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = "We could not find the user.";
+                return View("Error");
+            }
 
             return RedirectToAction("Tracks", "Profile");
         }
@@ -26,7 +30,11 @@ namespace MusicLibrary.Web.Controllers
         public ActionResult Playlists(string username)
         {
             var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
-            if (user == null) return RedirectToAction("Index", "Home");
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = "We could not find the user.";
+                return View("Error");
+            }
 
             ViewBag.Category = nameof(Playlists);
             return View();
@@ -36,7 +44,11 @@ namespace MusicLibrary.Web.Controllers
         public ActionResult Saved(string username)
         {
             var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
-            if (user == null) return RedirectToAction("Index", "Home");
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = "We could not find the user.";
+                return View("Error");
+            }
 
             ViewBag.Category = nameof(Saved);
             return View();
@@ -46,7 +58,11 @@ namespace MusicLibrary.Web.Controllers
         public ActionResult Tracks(string username)
         {
             var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
-            if (user == null) return RedirectToAction("Index", "Home");
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = "We could not find the user.";
+                return View("Error");
+            }
 
             ViewBag.Category = nameof(Tracks);
             return View();
@@ -58,7 +74,8 @@ namespace MusicLibrary.Web.Controllers
             var user = _userServices.GetByUserName(username == "you" ? User.Identity.Name : username);
             if (user == null)
             {
-                return RedirectToAction("Index", "Home");
+                ViewBag.ErrorMessage = "We could not find the user.";
+                return View("Error");
             }
 
             ViewBag.Category = nameof(Likes);
